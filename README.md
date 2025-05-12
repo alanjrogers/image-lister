@@ -27,8 +27,5 @@ TODOs
 [] Fix dialog styles
 [] Better card styles
 [] Better grid styles
-[] let you close dialog when editing
-[] disable dialog continue button until both fields have entries
-
 
 NOTE: Prefer to have as few dependencies as possible. Please follow this guideline during your test.

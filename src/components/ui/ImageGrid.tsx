@@ -1,17 +1,9 @@
 import {Character, CharacterQueryResponse} from '@/lib/types';
-import {
-  Box, // Added Box
-  Button,
-  ButtonGroup,
-  Card,
-  Grid,
-  IconButton,
-  Pagination,
-} from '@chakra-ui/react';
+import {Box, ButtonGroup, Grid, IconButton, Pagination} from '@chakra-ui/react';
 import {useSuspenseQuery} from '@apollo/client';
 import {characterQuery} from '@/lib/data';
-import Image from 'next/image';
 import {HiChevronLeft, HiChevronRight} from 'react-icons/hi';
+import {CharacterCard} from './CharacterCard';
 
 interface ImageGridProps {
   page: number;
@@ -44,28 +36,10 @@ export const ImageGrid = ({page, onPageChange}: ImageGridProps) => {
         gap="4"
       >
         {data.characters.results.map((character: Character, index: number) => (
-          <Card.Root key={index}>
-            <Card.Header>
-              <Image
-                src={character.image}
-                width={300}
-                height={300}
-                alt={character.name}
-              />
-              <Button>{character.status}</Button>
-              <Card.Title>{character.name}</Card.Title>
-            </Card.Header>
-            <Card.Body>
-              <p>{character.species}</p>
-              <p>Origin: {character.origin.name}</p>
-              <p>Location: {character.location.name}</p>
-            </Card.Body>
-          </Card.Root>
+          <CharacterCard index={index} character={character} key={index} />
         ))}
       </Grid>
       <Box display="flex" justifyContent="center" mt="4">
-        {' '}
-        {/* Added Box for centering */}
         <Pagination.Root
           count={data.characters.info.count}
           pageSize={20}
@@ -96,8 +70,7 @@ export const ImageGrid = ({page, onPageChange}: ImageGridProps) => {
             </Pagination.NextTrigger>
           </ButtonGroup>
         </Pagination.Root>
-      </Box>{' '}
-      {/* Closing Box */}
+      </Box>
     </>
   );
 };
