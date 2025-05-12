@@ -1,26 +1,27 @@
 import {
   Button,
-  // CloseButton,
+  CloseButton, // Uncommented CloseButton
   Dialog,
   Field,
   Input,
   Portal,
   Stack,
+  useDialog,
 } from '@chakra-ui/react';
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useCallback} from 'react';
 import type {UserInfo} from '@/lib/types';
 
 interface UserInfoDialogProps {
   initialUserInfo?: UserInfo; // Changed from userInfo, made optional
   onSave: (userInfo: UserInfo) => void; // Callback to save data
-  onClose: () => void; // Callback to close the dialog
 }
 
 export const UserInfoDialog = ({
   initialUserInfo,
   onSave,
-  onClose,
 }: UserInfoDialogProps) => {
+  const dialog = useDialog();
+
   const [username, setUsername] = useState('');
   const [jobTitle, setJobTitle] = useState('');
 
@@ -31,11 +32,11 @@ export const UserInfoDialog = ({
     }
   }, [initialUserInfo]);
 
-  const handleContinue = () => {
+  const handleContinue = useCallback(() => {
     const newUserInfo = {username, jobTitle};
     onSave(newUserInfo); // Pass data to parent for saving
-    onClose(); // Tell parent to close the dialog
-  };
+    dialog.setOpen(false); // Close the dialog
+  }, [dialog, username, jobTitle, onSave]);
 
   return (
     <Portal>
@@ -44,9 +45,9 @@ export const UserInfoDialog = ({
         <Dialog.Content>
           <Dialog.Header>
             <Dialog.Title>User Details</Dialog.Title>
-            {/* <Dialog.CloseTrigger asChild> */}
-            {/* <CloseButton size="sm" /> */}
-            {/* </Dialog.CloseTrigger> */}
+            <Dialog.CloseTrigger asChild>
+              <CloseButton size="sm" />
+            </Dialog.CloseTrigger>
           </Dialog.Header>
           <Dialog.Body pb="4">
             <Stack gap="4">

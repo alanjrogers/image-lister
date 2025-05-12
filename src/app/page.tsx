@@ -9,6 +9,7 @@ import {
   Avatar,
   Spacer,
   Menu,
+  useDialog,
 } from '@chakra-ui/react';
 import Image from 'next/image';
 import {useState, useEffect} from 'react'; // Added useEffect
@@ -17,42 +18,34 @@ import type {UserInfo} from '@/lib/types';
 import {loadUserInfo, saveUserInfo} from '@/lib/user-info'; // Added imports
 
 export default function Home() {
+  const dialog = useDialog();
   // Initialize userInfo directly from localStorage
   const [userInfo, setUserInfo] = useState<UserInfo | undefined>(() => {
     return loadUserInfo();
   });
 
-  // Set dialog open state based on whether we have user info
-  const [userInfoDialogOpen, setUserInfoDialogOpen] = useState(() => {
-    // Only run on client side
-    return !loadUserInfo(); // Dialog open if NO user info
-  });
-
   // Log when component mounts (for debugging)
   useEffect(() => {
     console.log('Home component mounted, userInfo:', userInfo);
-    console.log('Dialog open:', userInfoDialogOpen);
-  }, [userInfo, userInfoDialogOpen]);
 
-  const handleSaveUserInfo = (newUserInfo: UserInfo) => {
+    if (userInfo === undefined) {
+      dialog.setOpen(true); // Open dialog if no user info
+    }
+  }, [userInfo, dialog]);
+
+  function handleSaveUserInfo(newUserInfo: UserInfo) {
     saveUserInfo(newUserInfo);
     setUserInfo(newUserInfo);
-    setUserInfoDialogOpen(false); // Close dialog on save
-  };
-
-  const handleCloseDialog = () => {
-    setUserInfoDialogOpen(false);
-  };
+  }
 
   const handleChangeDetails = () => {
-    setUserInfoDialogOpen(true);
+    dialog.setOpen(true);
   };
 
   const handleSignOut = () => {
     localStorage.removeItem('image-lister-user-info');
     setUserInfo(undefined);
-    // redirect to home
-    window.location.href = '/';
+    dialog.setOpen(true); // Open dialog to re-enter user info
   };
 
   return (
@@ -83,20 +76,13 @@ export default function Home() {
         </Flex>
       </Box>
       <Box as="main" flex="1" pb="80px">
-        <Dialog.Root
-          size="lg"
-          placement="center"
-          motionPreset="slide-in-bottom"
-          open={userInfoDialogOpen}
-          closeOnEscape={false}
-        >
+        <Dialog.RootProvider value={dialog} size="lg" placement="center">
           <UserInfoDialog
             initialUserInfo={userInfo}
             onSave={handleSaveUserInfo}
-            onClose={handleCloseDialog}
           />
-          {userInfo === undefined ? null : <Images />}
-        </Dialog.Root>
+        </Dialog.RootProvider>
+        {userInfo === undefined ? null : <Images />}
       </Box>
       <Box
         as="footer"
