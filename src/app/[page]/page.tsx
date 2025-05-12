@@ -28,7 +28,7 @@ interface PageProps {
   params: Promise<ResolvedPageParams>;
 }
 
-export default function Page({ params: paramsPromise }: PageProps) {
+export default function Page({params: paramsPromise}: PageProps) {
   // Use React.use to unwrap the params Promise
   const actualParams = use(paramsPromise);
 
@@ -46,7 +46,8 @@ export default function Page({ params: paramsPromise }: PageProps) {
   useEffect(() => {
     // Redirect to the canonical URL if the param was invalid or not in its simplest form
     // e.g., /abc -> /1, /0 -> /1, /01 -> /1
-    if (actualParams.page !== String(derivedPage)) { // Use unwrapped params
+    if (actualParams.page !== String(derivedPage)) {
+      // Use unwrapped params
       router.replace(`/${derivedPage}`);
     }
   }, [actualParams.page, derivedPage, router]); // Use unwrapped params in dependency array
@@ -56,7 +57,12 @@ export default function Page({ params: paramsPromise }: PageProps) {
   });
 
   useEffect(() => {
-    console.log('Page component mounted, userInfo:', userInfo, 'page:', derivedPage);
+    console.log(
+      'Page component mounted, userInfo:',
+      userInfo,
+      'page:',
+      derivedPage
+    );
     if (userInfo === undefined) {
       dialog.setOpen(true);
     }
@@ -81,9 +87,10 @@ export default function Page({ params: paramsPromise }: PageProps) {
     router.push(`/${newPage}`); // Update the URL path
   };
 
-  // If a redirect is determined to be needed by the useEffect above, 
+  // If a redirect is determined to be needed by the useEffect above,
   // returning null here prevents rendering the old page content momentarily.
-  if (actualParams.page !== String(derivedPage)) { // Use unwrapped params
+  if (actualParams.page !== String(derivedPage)) {
+    // Use unwrapped params
     return null; // Or a loading indicator
   }
 
@@ -121,7 +128,9 @@ export default function Page({ params: paramsPromise }: PageProps) {
             onSave={handleSaveUserInfo}
           />
         </Dialog.RootProvider>
-        {userInfo === undefined ? null : <ImageGrid page={derivedPage} onPageChange={handlePageChange} />}
+        {userInfo === undefined ? null : (
+          <ImageGrid page={derivedPage} onPageChange={handlePageChange} />
+        )}
       </Box>
       <Box
         as="footer"
