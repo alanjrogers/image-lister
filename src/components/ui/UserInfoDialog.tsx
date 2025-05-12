@@ -34,16 +34,16 @@ export const UserInfoDialog = ({
 
   const handleContinue = useCallback(() => {
     const newUserInfo = {username, jobTitle};
-    onSave(newUserInfo); // Pass data to parent for saving
-    dialog.setOpen(false); // Close the dialog
+    onSave(newUserInfo);
+    dialog.setOpen(false);
   }, [dialog, username, jobTitle, onSave]);
 
   return (
     <Portal>
       <Dialog.Backdrop />
       <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Header>
+        <Dialog.Content padding="4">
+          <Dialog.Header pb="4">
             <Dialog.Title>User Details</Dialog.Title>
             <Dialog.CloseTrigger asChild>
               <CloseButton size="sm" />
@@ -71,7 +71,9 @@ export const UserInfoDialog = ({
           </Dialog.Body>
           <Dialog.Footer>
             <Dialog.ActionTrigger asChild>
-              <Button onClick={handleContinue}>Continue</Button>
+              <Button padding={4} onClick={handleContinue}>
+                Continue
+              </Button>
             </Dialog.ActionTrigger>
           </Dialog.Footer>
         </Dialog.Content>

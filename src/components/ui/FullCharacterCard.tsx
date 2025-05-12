@@ -1,6 +1,6 @@
 'use client';
 
-import {Card, Text} from '@chakra-ui/react';
+import {Card, Text, Box} from '@chakra-ui/react';
 import type {Character} from '@/lib/types'; // Assuming you have a Character type
 import Image from 'next/image';
 
@@ -16,14 +16,16 @@ export function FullCharacterCard({character}: FullCharacterCardProps) {
   return (
     <Card.Root>
       <Card.Header>
-        <Card.Title>{character.name}</Card.Title>
+        <Card.Title textAlign="center">{character.name}</Card.Title>
 
-        <Image
-          src={character.image}
-          width={600}
-          height={600}
-          alt={character.name}
-        />
+        <Box display="flex" justifyContent="center">
+          <Image
+            src={character.image}
+            width={600}
+            height={600}
+            alt={character.name}
+          />
+        </Box>
       </Card.Header>
       <Card.Body>
         <Text

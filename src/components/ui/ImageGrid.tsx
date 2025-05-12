@@ -34,6 +34,9 @@ export const ImageGrid = ({page, onPageChange}: ImageGridProps) => {
           lg: 'repeat(6, 1fr)',
         }}
         gap="4"
+        pt="4"
+        pl="4"
+        pr="4"
       >
         {data.characters.results.map((character: Character, index: number) => (
           <CharacterCard index={index} character={character} key={index} />

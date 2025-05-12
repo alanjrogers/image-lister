@@ -16,16 +16,7 @@
 [x] Ensure this data is not retrieved until the user has entered their username and job title information.
 [x] Display the GraphQL API data as a paginated list of items on an “Information Page”.
 [x] A user must be able to directly link (via URL) to a specific page of the paginated data.
-[ ] When an item is clicked on the “Information Page”, it must open a modal that displays the information about that item.
+[x] When an item is clicked on the “Information Page”, it must open a modal that displays the information about that item.
 [ ] Deploy on Vercel free tier.
-
-TODOs
-
-[x] Menu location
-[x] Fix dialog show/hide behaviour
-[x] Proper pagination (next/prev page and page #)
-[] Fix dialog styles
-[] Better card styles
-[] Better grid styles
 
 NOTE: Prefer to have as few dependencies as possible. Please follow this guideline during your test.

@@ -13,13 +13,12 @@ import {
   Portal,
 } from '@chakra-ui/react';
 import Image from 'next/image';
-import {useState, useEffect, use} from 'react'; // Added 'use'
+import {useState, useEffect, use} from 'react';
 import {UserInfoDialog} from '@/components/ui/UserInfoDialog';
 import type {UserInfo} from '@/lib/types';
 import {loadUserInfo, saveUserInfo} from '@/lib/user-info';
 import {useRouter} from 'next/navigation';
 
-// Define the expected shape of the resolved params
 interface ResolvedPageParams {
   page: string;
 }
@@ -30,13 +29,12 @@ interface PageProps {
 }
 
 export default function Page({params: paramsPromise}: PageProps) {
-  // Use React.use to unwrap the params Promise
   const actualParams = use(paramsPromise);
 
   const router = useRouter();
   const dialog = useDialog();
 
-  const pageStr = actualParams.page; // Use unwrapped params
+  const pageStr = actualParams.page;
   let derivedPage = parseInt(pageStr, 10);
 
   // Validate and set a default page number if the URL parameter is invalid
@@ -51,19 +49,13 @@ export default function Page({params: paramsPromise}: PageProps) {
       // Use unwrapped params
       router.replace(`/${derivedPage}`);
     }
-  }, [actualParams.page, derivedPage, router]); // Use unwrapped params in dependency array
+  }, [actualParams.page, derivedPage, router]);
 
   const [userInfo, setUserInfo] = useState<UserInfo | undefined>(() => {
     return loadUserInfo();
   });
 
   useEffect(() => {
-    console.log(
-      'Page component mounted, userInfo:',
-      userInfo,
-      'page:',
-      derivedPage
-    );
     if (userInfo === undefined) {
       dialog.setOpen(true);
     }
@@ -116,11 +108,15 @@ export default function Page({params: paramsPromise}: PageProps) {
                     value="change-details"
                     onClick={handleChangeDetails}
                   >
-                    Change details
+                    {userInfo !== undefined
+                      ? 'Change details'
+                      : 'Sign in to continue'}
                   </Menu.Item>
-                  <Menu.Item value="sign-out" onClick={handleSignOut}>
-                    Sign out
-                  </Menu.Item>
+                  {userInfo !== undefined ? (
+                    <Menu.Item value="sign-out" onClick={handleSignOut}>
+                      Sign out
+                    </Menu.Item>
+                  ) : null}
                 </Menu.Content>
               </Menu.Positioner>
             </Portal>
