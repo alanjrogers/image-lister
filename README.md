@@ -2,7 +2,7 @@
 # AniList listing app (Challenge Brief (v3.5)
 
 [x] Set up a NextJS project using the App router with TypeScript
-[ ] Use the ChakraUI component library for UI elements and styling.
+[x] Use the ChakraUI component library for UI elements and styling.
 [ ] Ensure your product is responsive for mobile and desktop.
 [ ] Add a footer to your site that displays the challenge version.
 [ ] Have a blocking element (page/modal / etc) that prevents access to all other pages and data:
