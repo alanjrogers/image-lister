@@ -8,8 +8,8 @@
 [x] Have a blocking element (page/modal / etc) that prevents access to all other pages and data:
 [x] On this blocking element, get a username and job title from the user.
 [x] Save the user’s username and job title information in a way you best see fit so the data persists between reloads.
-[ ] Once the username and job title information has been entered, a user must be able to view this information in full.
-[ ] A user must be able to change this information after submitting it.
+[x] Once the username and job title information has been entered, a user must be able to view this information in full.
+[x] A user must be able to change this information after submitting it.
 [x] Use the Apollo client to query a public GraphQL API.
 [x] Ensure that you pick a GraphQL API and data structure that provides images. (rick and morty, stretch goal do all of them)
 [x] Ensure the data and images are displayed.
@@ -22,7 +22,8 @@
 TODOs
 
 [] Menu location
-[] Fix dialog show/hide behaviour
+[] Show details in the menu
+[x] Fix dialog show/hide behaviour
 [] Proper pagination (next/prev page and page #)
 [] Fix dialog styles
 [] Better card styles
