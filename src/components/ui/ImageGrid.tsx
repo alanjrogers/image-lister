@@ -10,6 +10,9 @@ interface ImageGridProps {
   onPageChange: (newPage: number) => void;
 }
 
+// Component to fetch and display a paginated grid of character cards
+// From the Rick and Morty API (currently)
+// Could be easily adapted to work using different queries and matching card components
 export const ImageGrid = ({page, onPageChange}: ImageGridProps) => {
   const {error, data, fetchMore} = useSuspenseQuery<CharacterQueryResponse>(
     characterQuery,

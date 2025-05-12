@@ -1,13 +1,16 @@
 'use client';
 
 import {Card, Text, Box} from '@chakra-ui/react';
-import type {Character} from '@/lib/types'; // Assuming you have a Character type
+import type {Character} from '@/lib/types';
 import Image from 'next/image';
 
 interface FullCharacterCardProps {
-  character: Character; // Adjust this based on the actual props needed
+  character: Character;
 }
 
+// FullCharacterCard component to display detailed information about a character
+// It includes the character's name, image, status, species, origin, and location
+// It is used in a dialog that opens when a character card is clicked
 export function FullCharacterCard({character}: FullCharacterCardProps) {
   if (!character) {
     return null;

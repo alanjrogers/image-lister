@@ -1,3 +1,5 @@
+// Local storage utility for storing and retrieving UserInfo
+
 import type {UserInfo} from './types';
 
 const USER_INFO_KEY = 'image-lister-user-info';

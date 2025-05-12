@@ -17,6 +17,8 @@
 [x] Display the GraphQL API data as a paginated list of items on an “Information Page”.
 [x] A user must be able to directly link (via URL) to a specific page of the paginated data.
 [x] When an item is clicked on the “Information Page”, it must open a modal that displays the information about that item.
-[ ] Deploy on Vercel free tier.
+[x] Deploy on Vercel free tier.
+
+https://image-lister.vercel.app
 
 NOTE: Prefer to have as few dependencies as possible. Please follow this guideline during your test.

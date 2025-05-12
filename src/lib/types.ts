@@ -1,3 +1,6 @@
+// This file contains TypeScript interfaces for the data structures used in the application.
+// It includes interfaces for characters, episodes, locations, and user information.
+
 export interface CharacterQueryResponse {
   characters: {
     info: {

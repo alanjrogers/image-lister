@@ -1,6 +1,6 @@
 import {
   Button,
-  CloseButton, // Uncommented CloseButton
+  CloseButton,
   Dialog,
   Field,
   Input,
@@ -12,10 +12,11 @@ import {useState, useEffect, useCallback} from 'react';
 import type {UserInfo} from '@/lib/types';
 
 interface UserInfoDialogProps {
-  initialUserInfo?: UserInfo; // Changed from userInfo, made optional
-  onSave: (userInfo: UserInfo) => void; // Callback to save data
+  initialUserInfo?: UserInfo;
+  onSave: (userInfo: UserInfo) => void;
 }
 
+// "login" dialog for the user to enter their username and job title
 export const UserInfoDialog = ({
   initialUserInfo,
   onSave,
