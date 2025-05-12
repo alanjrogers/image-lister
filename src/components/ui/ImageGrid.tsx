@@ -3,14 +3,19 @@ import {Button, Card, Grid} from '@chakra-ui/react';
 import {useSuspenseQuery} from '@apollo/client';
 import {characterQuery} from '@/lib/data';
 import Image from 'next/image';
-import {useRef} from 'react';
+import {useRef, useEffect} from 'react';
 
 interface ImageGridProps {
   page: number;
+  onPageChange: (newPage: number) => void;
 }
 
-export const ImageGrid = ({page}: ImageGridProps) => {
+export const ImageGrid = ({page, onPageChange}: ImageGridProps) => {
   const currentPageRef = useRef(page);
+
+  useEffect(() => {
+    currentPageRef.current = page;
+  }, [page]);
 
   const {error, data, fetchMore} = useSuspenseQuery<CharacterQueryResponse>(
     characterQuery,
@@ -58,8 +63,10 @@ export const ImageGrid = ({page}: ImageGridProps) => {
       </Grid>
       <Button
         onClick={() => {
-          currentPageRef.current += 1;
-          fetchMore({variables: {page: currentPageRef.current}});
+          const nextPage = currentPageRef.current + 1;
+          fetchMore({variables: {page: nextPage}});
+          currentPageRef.current = nextPage;
+          onPageChange(nextPage);
         }}
       >
         Fetch more
