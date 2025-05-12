@@ -1,6 +1,6 @@
 'use client';
 
-import {Images} from '@/components/ui/images';
+import {ImageGrid} from '@/components/ui/ImageGrid';
 import {
   Box,
   Dialog,
@@ -12,13 +12,20 @@ import {
   useDialog,
 } from '@chakra-ui/react';
 import Image from 'next/image';
-import {useState, useEffect} from 'react'; // Added useEffect
+import {useState, useEffect} from 'react';
 import {UserInfoDialog} from '@/components/ui/UserInfoDialog';
 import type {UserInfo} from '@/lib/types';
-import {loadUserInfo, saveUserInfo} from '@/lib/user-info'; // Added imports
+import {loadUserInfo, saveUserInfo} from '@/lib/user-info';
+import {useSearchParams} from 'next/navigation'; // Added import
 
 export default function Home() {
   const dialog = useDialog();
+  const searchParams = useSearchParams(); // Added hook to get search params
+
+  // Determine page number from URL search params, default to 1
+  const pageFromUrl = parseInt(searchParams.get('page') || '1', 10);
+  const currentPage = isNaN(pageFromUrl) || pageFromUrl < 1 ? 1 : pageFromUrl;
+
   // Initialize userInfo directly from localStorage
   const [userInfo, setUserInfo] = useState<UserInfo | undefined>(() => {
     return loadUserInfo();
@@ -82,7 +89,7 @@ export default function Home() {
             onSave={handleSaveUserInfo}
           />
         </Dialog.RootProvider>
-        {userInfo === undefined ? null : <Images />}
+        {userInfo === undefined ? null : <ImageGrid page={currentPage} />}
       </Box>
       <Box
         as="footer"

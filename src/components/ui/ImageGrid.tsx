@@ -5,13 +5,18 @@ import {characterQuery} from '@/lib/data';
 import Image from 'next/image';
 import {useRef} from 'react';
 
-export const Images = () => {
-  const currentPage = useRef(1);
+interface ImageGridProps {
+  page: number;
+}
+
+export const ImageGrid = ({page}: ImageGridProps) => {
+  const currentPageRef = useRef(page);
+
   const {error, data, fetchMore} = useSuspenseQuery<CharacterQueryResponse>(
     characterQuery,
     {
       variables: {
-        page: currentPage.current,
+        page: currentPageRef.current,
       },
     }
   );
@@ -53,8 +58,8 @@ export const Images = () => {
       </Grid>
       <Button
         onClick={() => {
-          currentPage.current += 1;
-          fetchMore({variables: {page: currentPage.current}});
+          currentPageRef.current += 1;
+          fetchMore({variables: {page: currentPageRef.current}});
         }}
       >
         Fetch more
