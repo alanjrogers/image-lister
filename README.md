@@ -1,5 +1,5 @@
 
-# Image listing app (Challenge Brief (v3.5)
+# Image listing app Challenge Brief (v3.5)
 
 [x] Set up a NextJS project using the App router with TypeScript
 [x] Use the ChakraUI component library for UI elements and styling.

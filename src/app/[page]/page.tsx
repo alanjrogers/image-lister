@@ -23,12 +23,12 @@ interface ResolvedPageParams {
   page: string;
 }
 
-// Props type for the component, indicating params is a Promise
 interface PageProps {
   params: Promise<ResolvedPageParams>;
 }
 
 export default function Page({params: paramsPromise}: PageProps) {
+  // Use the promise to get resolved params
   const actualParams = use(paramsPromise);
 
   const router = useRouter();
@@ -51,31 +51,37 @@ export default function Page({params: paramsPromise}: PageProps) {
     }
   }, [actualParams.page, derivedPage, router]);
 
+  // Load user info from local storage into state
   const [userInfo, setUserInfo] = useState<UserInfo | undefined>(() => {
     return loadUserInfo();
   });
 
+  // Open 'login' dialog if user info is not present
   useEffect(() => {
     if (userInfo === undefined) {
       dialog.setOpen(true);
     }
-  }, [userInfo, dialog, derivedPage]);
+  }, [userInfo, dialog]);
 
+  // Save user info to local storage and update state
   function handleSaveUserInfo(newUserInfo: UserInfo) {
     saveUserInfo(newUserInfo);
     setUserInfo(newUserInfo);
   }
 
+  // Show the dialog to change user details from the Avatar menu
   const handleChangeDetails = () => {
     dialog.setOpen(true);
   };
 
+  // 'sign out' aka clear user info from local storage and state (triggered via Avatar menu)
   const handleSignOut = () => {
     localStorage.removeItem('image-lister-user-info');
     setUserInfo(undefined);
     dialog.setOpen(true);
   };
 
+  // When the page changes, update the URL
   const handlePageChange = (newPage: number) => {
     router.push(`/${newPage}`); // Update the URL path
   };
@@ -83,8 +89,7 @@ export default function Page({params: paramsPromise}: PageProps) {
   // If a redirect is determined to be needed by the useEffect above,
   // returning null here prevents rendering the old page content momentarily.
   if (actualParams.page !== String(derivedPage)) {
-    // Use unwrapped params
-    return null; // Or a loading indicator
+    return null;
   }
 
   return (
@@ -130,6 +135,7 @@ export default function Page({params: paramsPromise}: PageProps) {
             onSave={handleSaveUserInfo}
           />
         </Dialog.RootProvider>
+        // Only render images when userInfo is present
         {userInfo === undefined ? null : (
           <ImageGrid page={derivedPage} onPageChange={handlePageChange} />
         )}
