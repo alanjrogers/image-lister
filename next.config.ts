@@ -5,6 +5,15 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['@chakra-ui/react'],
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'rickandmortyapi.com',
+        port: '',
+      },
+    ],
+  },
 };
 
 export default nextConfig;

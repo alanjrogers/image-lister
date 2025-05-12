@@ -1,5 +1,5 @@
 
-# AniList listing app (Challenge Brief (v3.5)
+# Image listing app (Challenge Brief (v3.5)
 
 [x] Set up a NextJS project using the App router with TypeScript
 [x] Use the ChakraUI component library for UI elements and styling.
@@ -11,7 +11,7 @@
 [ ] Once the username and job title information has been entered, a user must be able to view this information in full.
 [ ] A user must be able to change this information after submitting it.
 [ ] Use the Apollo client to query a public GraphQL API.
-[ ] Ensure that you pick a GraphQL API and data structure that provides images. (anilist, stretch goal do all of them)
+[ ] Ensure that you pick a GraphQL API and data structure that provides images. (rick and morty, stretch goal do all of them)
 [ ] Ensure the data and images are displayed.
 [ ] Ensure this data is not retrieved until the user has entered their username and job title information.
 [ ] Display the GraphQL API data as a paginated list of items on an “Information Page”.
