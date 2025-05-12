@@ -1,14 +1,14 @@
+'use client';
+
 import Image from 'next/image';
 import styles from './page.module.css';
-import {getClient} from '@/lib/apollo-client';
 import {Character, CharacterQueryResponse} from '@/lib/types';
 import {characterQuery} from '@/lib/data';
 import {Button, Card} from '@chakra-ui/react';
+import {useSuspenseQuery} from '@apollo/client';
 
-export default async function Home() {
-  const {data} = await getClient().query<CharacterQueryResponse>({
-    query: characterQuery,
-  });
+export default function Home() {
+  const {data} = useSuspenseQuery<CharacterQueryResponse>(characterQuery);
 
   return (
     <div className={styles.page}>
