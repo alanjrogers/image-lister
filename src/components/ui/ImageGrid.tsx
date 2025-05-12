@@ -1,9 +1,17 @@
 import {Character, CharacterQueryResponse} from '@/lib/types';
-import {Button, Card, Grid} from '@chakra-ui/react';
+import {
+  Box, // Added Box
+  Button,
+  ButtonGroup,
+  Card,
+  Grid,
+  IconButton,
+  Pagination,
+} from '@chakra-ui/react';
 import {useSuspenseQuery} from '@apollo/client';
 import {characterQuery} from '@/lib/data';
 import Image from 'next/image';
-import {useRef, useEffect} from 'react';
+import {HiChevronLeft, HiChevronRight} from 'react-icons/hi';
 
 interface ImageGridProps {
   page: number;
@@ -11,17 +19,11 @@ interface ImageGridProps {
 }
 
 export const ImageGrid = ({page, onPageChange}: ImageGridProps) => {
-  const currentPageRef = useRef(page);
-
-  useEffect(() => {
-    currentPageRef.current = page;
-  }, [page]);
-
   const {error, data, fetchMore} = useSuspenseQuery<CharacterQueryResponse>(
     characterQuery,
     {
       variables: {
-        page: currentPageRef.current,
+        page,
       },
     }
   );
@@ -61,16 +63,41 @@ export const ImageGrid = ({page, onPageChange}: ImageGridProps) => {
           </Card.Root>
         ))}
       </Grid>
-      <Button
-        onClick={() => {
-          const nextPage = currentPageRef.current + 1;
-          fetchMore({variables: {page: nextPage}});
-          currentPageRef.current = nextPage;
-          onPageChange(nextPage);
-        }}
-      >
-        Fetch more
-      </Button>
+      <Box display="flex" justifyContent="center" mt="4">
+        {' '}
+        {/* Added Box for centering */}
+        <Pagination.Root
+          count={data.characters.info.count}
+          pageSize={20}
+          defaultPage={1}
+          page={page}
+        >
+          <ButtonGroup gap="4" size="sm" variant="ghost">
+            <Pagination.PrevTrigger asChild>
+              <IconButton
+                onClick={() => {
+                  fetchMore({variables: {page: data.characters.info.prev}});
+                  onPageChange(data.characters.info.prev || 1);
+                }}
+              >
+                <HiChevronLeft />
+              </IconButton>
+            </Pagination.PrevTrigger>
+            <Pagination.PageText />
+            <Pagination.NextTrigger asChild>
+              <IconButton
+                onClick={() => {
+                  fetchMore({variables: {page: data.characters.info.next}});
+                  onPageChange(data.characters.info.next || 1);
+                }}
+              >
+                <HiChevronRight />
+              </IconButton>
+            </Pagination.NextTrigger>
+          </ButtonGroup>
+        </Pagination.Root>
+      </Box>{' '}
+      {/* Closing Box */}
     </>
   );
 };

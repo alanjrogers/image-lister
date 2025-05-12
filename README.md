@@ -21,10 +21,9 @@
 
 TODOs
 
-[] Menu location
-[] Show details in the menu
+[x] Menu location
 [x] Fix dialog show/hide behaviour
-[] Proper pagination (next/prev page and page #)
+[x] Proper pagination (next/prev page and page #)
 [] Fix dialog styles
 [] Better card styles
 [] Better grid styles

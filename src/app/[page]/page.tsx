@@ -10,6 +10,7 @@ import {
   Spacer,
   Menu,
   useDialog,
+  Portal,
 } from '@chakra-ui/react';
 import Image from 'next/image';
 import {useState, useEffect, use} from 'react'; // Added 'use'
@@ -103,21 +104,26 @@ export default function Page({params: paramsPromise}: PageProps) {
           </Heading>
           <Spacer />
           <Menu.Root>
-            <Menu.Trigger asChild>
-              <Avatar.Root cursor="pointer">
+            <Menu.Trigger>
+              <Avatar.Root>
                 <Avatar.Fallback name={userInfo?.username} />
               </Avatar.Root>
             </Menu.Trigger>
-            <Menu.Positioner>
-              <Menu.Content>
-                <Menu.Item value="change-details" onClick={handleChangeDetails}>
-                  Change details
-                </Menu.Item>
-                <Menu.Item value="sign-out" onClick={handleSignOut}>
-                  Sign out
-                </Menu.Item>
-              </Menu.Content>
-            </Menu.Positioner>
+            <Portal>
+              <Menu.Positioner>
+                <Menu.Content>
+                  <Menu.Item
+                    value="change-details"
+                    onClick={handleChangeDetails}
+                  >
+                    Change details
+                  </Menu.Item>
+                  <Menu.Item value="sign-out" onClick={handleSignOut}>
+                    Sign out
+                  </Menu.Item>
+                </Menu.Content>
+              </Menu.Positioner>
+            </Portal>
           </Menu.Root>
         </Flex>
       </Box>
