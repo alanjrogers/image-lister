@@ -9,6 +9,7 @@ interface CharacterCardProps {
 }
 
 // Simple CharacterCard component to display in the ImageGrid
+// It's clickable and opens a dialog to display the FullCharacterCard
 export const CharacterCard = ({index, character}: CharacterCardProps) => {
   const dialog = useDialog();
 
