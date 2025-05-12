@@ -20,5 +20,3 @@
 - [x] Deploy on Vercel free tier.
 
 https://image-lister.vercel.app
-
-NOTE: Prefer to have as few dependencies as possible. Please follow this guideline during your test.
