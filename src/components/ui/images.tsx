@@ -3,15 +3,15 @@ import {Button, Card, Grid} from '@chakra-ui/react';
 import {useSuspenseQuery} from '@apollo/client';
 import {characterQuery} from '@/lib/data';
 import Image from 'next/image';
-import {useState} from 'react';
+import {useRef} from 'react';
 
 export const Images = () => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const currentPage = useRef(1);
   const {error, data, fetchMore} = useSuspenseQuery<CharacterQueryResponse>(
     characterQuery,
     {
       variables: {
-        page: currentPage,
+        page: currentPage.current,
       },
     }
   );
@@ -53,8 +53,8 @@ export const Images = () => {
       </Grid>
       <Button
         onClick={() => {
-          setCurrentPage(currentPage + 1);
-          fetchMore({variables: {page: currentPage + 1}});
+          currentPage.current += 1;
+          fetchMore({variables: {page: currentPage.current}});
         }}
       >
         Fetch more

@@ -44,3 +44,8 @@ export interface LocationsData {
     results: Location[];
   };
 }
+
+export type UserInfo = {
+  username: string;
+  jobTitle: string;
+};
