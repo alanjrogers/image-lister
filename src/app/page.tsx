@@ -6,9 +6,10 @@ import {useRouter} from 'next/navigation';
 export default function Home() {
   const router = useRouter();
 
+  // Always Redirect to page 1
   useEffect(() => {
     router.replace('/1');
   }, [router]);
 
-  return null; // Or a loading indicator, or some minimal content
+  return null;
 }

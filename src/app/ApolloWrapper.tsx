@@ -9,11 +9,13 @@ import {
   SSRMultipartLink,
 } from '@apollo/client-integration-nextjs';
 
+// Make an appollo client to call rick and morty graphql api
 function makeClient() {
   const httpLink = new HttpLink({
     uri: 'https://rickandmortyapi.com/graphql',
   });
 
+  // Added SSR and multipart support here even though app isn't making use of it
   return new ApolloClient({
     cache: new InMemoryCache(),
     link:
@@ -29,7 +31,6 @@ function makeClient() {
   });
 }
 
-// you need to create a component to wrap your app in
 export function ApolloWrapper({children}: React.PropsWithChildren) {
   return (
     <ApolloNextAppProvider makeClient={makeClient}>

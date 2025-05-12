@@ -1,22 +1,18 @@
 import {Card, useDialog, Dialog, Portal} from '@chakra-ui/react';
 import {Character} from '@/lib/types';
 import Image from 'next/image';
-import {FullCharacterCard} from './FullCharacterCard'; // Adjusted import path
-import {useState} from 'react';
+import {FullCharacterCard} from '@/components/ui/FullCharacterCard';
 
 interface CharacterCardProps {
   index: number;
   character: Character;
 }
 
+// Simple CharacterCard component to display in the ImageGrid
 export const CharacterCard = ({index, character}: CharacterCardProps) => {
   const dialog = useDialog();
-  const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(
-    null
-  );
 
   const handleCardClick = () => {
-    setSelectedCharacter(character);
     dialog.setOpen(true);
   };
 
@@ -39,9 +35,7 @@ export const CharacterCard = ({index, character}: CharacterCardProps) => {
           <Dialog.Positioner>
             <Dialog.Content>
               <Dialog.CloseTrigger />
-              {selectedCharacter && (
-                <FullCharacterCard character={selectedCharacter} />
-              )}
+              <FullCharacterCard character={character} />
             </Dialog.Content>
           </Dialog.Positioner>
         </Portal>

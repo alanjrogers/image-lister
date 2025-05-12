@@ -135,7 +135,7 @@ export default function Page({params: paramsPromise}: PageProps) {
             onSave={handleSaveUserInfo}
           />
         </Dialog.RootProvider>
-        // Only render images when userInfo is present
+        {/* Only render images when userInfo is present  */}
         {userInfo === undefined ? null : (
           <ImageGrid page={derivedPage} onPageChange={handlePageChange} />
         )}
